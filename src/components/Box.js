@@ -30,6 +30,7 @@ export const Box = React.memo(({ value, i, j, onClickBox, id }) => {
       {value === 1 && (
         <img
           style={{ height: 100, width: 100, padding: 0 }}
+          alt={"X"}
           src={
             "https://emojipedia-us.s3.amazonaws.com/source/skype/289/cross-mark_274c.png"
           }
@@ -38,6 +39,7 @@ export const Box = React.memo(({ value, i, j, onClickBox, id }) => {
       {value === 2 && (
         <img
           style={{ height: 100, width: 100, padding: 0 }}
+          alt={"O"}
           src={
             "https://smallimg.pngkey.com/png/small/205-2056222_tic-tac-toe-o.png"
           }

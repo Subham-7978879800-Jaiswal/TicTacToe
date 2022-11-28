@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export const useTicTacToe = (size) => {
   const createBoard = (size) => {
@@ -12,7 +13,7 @@ export const useTicTacToe = (size) => {
     for (let i = 0; i < boardSize; i++) {
       board.push([]);
       for (let j = 0; j < boardSize; j++) {
-        board[i].push(0);
+        board[i].push({ id: uuidv4(), value: 0 });
       }
     }
     return board;
@@ -28,7 +29,7 @@ export const useTicTacToe = (size) => {
     let counter = 0;
     let size = tickTacToe.length;
     for (let k = 0; k < size; k++) {
-      if (tickTacToe[k][col] === valueToCheck) {
+      if (tickTacToe[k][col].value === valueToCheck) {
         counter++;
       } else {
         return false;
@@ -43,7 +44,7 @@ export const useTicTacToe = (size) => {
     let counter = 0;
     let size = tickTacToe.length;
     for (let k = 0; k < size; k++) {
-      if (tickTacToe[row][k] === valueToCheck) {
+      if (tickTacToe[row][k].value === valueToCheck) {
         counter++;
       } else {
         return false;
@@ -59,7 +60,7 @@ export const useTicTacToe = (size) => {
     let size = tickTacToe.length;
 
     for (let k = 0; k < size; k++) {
-      if (tickTacToe[k][size - 1 - k] === valueToCheck) {
+      if (tickTacToe[k][size - 1 - k].value === valueToCheck) {
         counter++;
       } else {
         return false;
@@ -76,7 +77,7 @@ export const useTicTacToe = (size) => {
     let size = tickTacToe.length;
 
     for (let k = 0; k < size; k++) {
-      if (tickTacToe[k][k] === valueToCheck) {
+      if (tickTacToe[k][k].value === valueToCheck) {
         counter++;
       } else {
         return false;
@@ -96,10 +97,20 @@ export const useTicTacToe = (size) => {
       checkMajorColumnn(tickTacToe, valueToCheck)
     );
   };
+  const isGameOver = (tickTacToe) => {
+    for (let i = 0; i < tickTacToe.length; i++) {
+      for (let j = 0; j < tickTacToe[i].length; j++) {
+        if (tickTacToe[i][j].value === 0) {
+          return false;
+        }
+      }
+    }
+    return true;
+  };
 
   const reset = () => {
     setTickTacToe(createBoard(3));
   };
 
-  return { tickTacToe, updateTicTacToe, isWinner, reset };
+  return { tickTacToe, updateTicTacToe, isWinner, reset, isGameOver };
 };
